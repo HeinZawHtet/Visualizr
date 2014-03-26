@@ -1,1 +1,1 @@
-* Visualizr Module for RebornCMS (MongoDB)
+# Visualizr Module for RebornCMS (MongoDB)
