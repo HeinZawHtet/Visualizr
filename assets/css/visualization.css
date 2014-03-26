@@ -1,0 +1,233 @@
+#content-panel {
+    background: #f1f1f1;
+}
+.vsl a:hover {
+    transition: all 0.5s;
+}
+.vsl .vsl-content ul {
+    list-style: none;
+    padding: 0 !important;
+    margin: 5px 0;
+}
+.vsl h2 {
+    margin: 3px;
+    font-size: 20px;
+}
+.vsl li {
+    background: transparent;
+    border: none;
+}
+.vsl .btn {
+    color: #fff;
+}
+.visualization {
+    background: #fff;
+    width: 80%;
+    position: relative;
+    margin: 10px auto;
+    overflow: hidden;
+    font-size: 14px;
+    color: #5e5e5e;
+}
+.vsl input, .vsl select {
+    border: 1px solid #d5d5d5;
+    padding: 8px 1%;
+    width: 97%;
+    margin-bottom: 10px;
+    font-family: 'Open Sans';
+}
+.vsl select {
+    width: 99%;
+    font-family: myanmar3
+}
+.vsl a {
+    color: #3498db;
+    text-decoration: none;
+}
+.vsl h1,.vsl h2,.vsl h3,.vsl h4 {
+    font-weight: normal;
+}
+.vsl-header {
+    background: #fafafa;
+    padding: 30px;
+    position: static;
+}
+.vsl-error ul {
+    list-style: none;
+}
+.vsl-error li {
+    background: #F38787;
+    padding: 10px;
+}
+.vsl-steps {
+    list-style: none;
+    width: 500px;
+    margin: 0 auto;
+    padding: 0;
+}
+.vsl .step-bar {
+    border: 1px solid #bdc3c7;
+    width: 238px;
+    margin: 0 auto;
+}
+.vsl-steps li {
+    width: 50%;
+    float: left;
+    margin-top: -5px;
+}
+.vsl-steps h3 {
+    color: #bdc3c7;
+    margin: 5px 0;
+    font-size: 14px;
+    text-align: center;
+}
+.vsl-steps .circle {
+    background: #bdc3c7;
+    width: 10px;
+    height: 10px;
+    display: block;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+.vsl .active .circle{
+    background-color: #3498db;
+}
+.vsl .active h3  {
+    color: #3498db;
+}
+.vsl .col-1 {
+    width: 96%;
+    padding: 2%;
+    padding: 2%;
+}
+.vsl .col-2 {
+    width: 46%;
+    padding: 2%;
+    float: left;
+}
+.vsl .col-3 {
+    width: 33.33%;
+    float: left;
+}
+.vsl .type-item {
+    text-align: center;
+    padding: 80px 0;
+    display: block;
+}
+.vsl .type-item:hover {
+    text-shadow: 0 0 10px #95a5a6;
+}
+.vsl .type-icon {
+    background: url('../img/sprite.png') no-repeat;
+    display: block;
+}
+.vsl .type-item .type-icon {
+    margin: 0 auto;
+}
+.vsl .pie-icon {
+    background-position: -13px -16px;
+    width: 61px; 
+    height: 61px;
+}
+.vsl .bar-icon {
+    background-position: -92px -20px; 
+    width: 50px; 
+    height: 61px;
+}
+.vsl .graph-icon {
+    background-position:  -157px -24px; 
+    width: 79px; 
+    height: 61px;
+}
+.border-right {
+    border-right: 1px solid #ecf0f1;
+}
+.small-wrap {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.vsl .data-label {
+    width: 53%;
+}
+.vsl .data-value {
+    width: 40%;
+}
+/*.vsl .data-color {
+    width: 19%;
+}*/
+.vsl .add-field-btn {
+    font-size: 12px;
+
+}
+.vsl .vsl-footer {
+    padding: 20px 0;
+    background: #fafafa;
+    margin-top: 5px;
+}
+.vsl-footer .btn {
+    background: #3498db;
+    border: none;
+    padding: 5px;
+    color: #fff;
+    box-shadow: none;
+    text-shadow: none;
+    border-radius: 0;
+    display: inline-block;
+}
+.vsl .ui-state-default {
+    position: relative;
+}
+.vsl .remove-field-btn {
+    position: absolute;
+    right: -50px;
+    top: 10px;
+    font-size: 12px;
+    color: #3498db;
+}
+#dataTable {
+    margin: 20px 0;
+}
+.vsl .option-table td {
+    text-align: center;
+}
+.vsl .option-table td label {
+    padding-top: 0;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 10px;
+}
+.vsl .option-table td input {
+    margin-bottom: 0;
+    padding: 10px 2px;
+    margin-top: 8px;
+}
+.spinner {
+  width: 40px;
+  height: 40px;
+  cursor: wait;
+  background-color: #333;
+
+  border-radius: 100%;
+  -webkit-animation: scaleout 1.0s infinite ease-in-out;
+  animation: scaleout 1.0s infinite ease-in-out;
+}
+
+@-webkit-keyframes scaleout {
+  0% { -webkit-transform: scale(0.0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes scaleout {
+  0% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 100% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}

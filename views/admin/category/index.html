@@ -1,0 +1,35 @@
+<div class="visualization vsl">
+	<header class="vsl-header">
+		<h2>Category Management</h2>
+	</header>
+	<section class="vsl-content">
+        <div class="col-2">
+    		<table class="striped">
+    			<tr>
+    				<th>All Categories</th>
+    			</tr>
+				{{ if(count($categories) > 0) }}
+					{{ loop($categories as $category) }}
+    			<tr>
+    				<td>{{ $category->title }}</td>
+    			</tr>
+    				{{ endloop }}
+				{{ else }}
+				<tr>
+    				<td>There is no category.</td>
+    			</tr>
+				{{ endif }}
+    		</table>
+		</div>
+		<div class="col-2">
+    		<h6>Add New Category</h6>
+    		<form method="post">
+				<input type="text" placeholder="Category Name" name="title">
+				<button class="btn btn-primary" type="submit">Submit</button>
+			</form>
+		</div>
+	</section>
+	<footer class="vsl-footer">
+		
+	</footer>
+</div>

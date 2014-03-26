@@ -1,0 +1,97 @@
+    <!-- <script type="text/javascript">
+
+      google.load('visualization', '1.0', {'packages':['corechart']});
+      google.setOnLoadCallback(drawChart);
+      // window.history.pushState("object or string", "Title", "/new-url");
+      
+      function drawChart() {
+
+        var getAllData = $.ajax({
+          url: "{{ url() }}visualizr/show/{{ Uri::segment(3) }}",
+          dataType:"json",
+          async: false
+        }).responseText;
+        
+        var vslData = $.parseJSON(getAllData);
+
+        // Set the title of Document
+        document.title = vslData.title;
+
+        var data = new google.visualization.DataTable();
+
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+        $.each(vslData.data_set, function (index, value) {
+            data.addRow([value[0], parseInt(value[1])]);
+        })
+
+        
+        var options = {
+          'title': vslData.title,
+          'width':700,
+          'height':700
+        };
+
+        if (vslData.type === 'pie') {
+          var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+        };
+        chart.draw(data, options);
+      }
+    </script> -->
+<!--Div that will hold the pie chart-->
+<div class="btn-group">
+   <a class="btn purple" href="#" data-toggle="dropdown">
+   <i class="icon-user"></i> Settings
+   <i class="icon-angle-down"></i>
+   </a>
+   <ul class="dropdown-menu bottom-up">
+      <li><a href="#"><i class="icon-plus"></i> Add</a></li>
+      <li><a href="#"><i class="icon-trash"></i> Edit</a></li>
+      <li><a href="#"><i class="icon-remove"></i> Delete</a></li>
+      <li class="divider"></li>
+      <li><a href="#"><i class="i"></i> Full Settings</a></li>
+   </ul>
+</div>
+  <h2>{{ $visualizr->title }}</h2>
+    <div id="piechart" style="width: 800px; height: 500px; margin: 0 auto"></div>
+      <script>
+        var Visualizr = {
+            chartId: "{{ $visualizr->id }}",
+            chartType : "{{ $visualizr->type }}"
+        }
+      </script>
+     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var getAllData = $.ajax({
+          url: "{{ url('visualizr/chart/') }}/"+Visualizr.chartId,
+          dataType:"json",
+          async: false
+        }).responseText;
+
+        var vslData = $.parseJSON(getAllData);
+
+        var data = google.visualization.arrayToDataTable(vslData);
+
+        
+
+        var chartType = Visualizr.chartType;
+
+        if ( chartType === 'pie') {
+          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        };
+
+        if ( chartType === 'bar') {
+           var chart = new google.visualization.BarChart(document.getElementById('piechart'));
+        };
+
+        if ( chartType === 'column') {
+           var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
+        };
+
+        // chart.draw(data, options);
+        chart.draw(data);
+      }
+    </script>

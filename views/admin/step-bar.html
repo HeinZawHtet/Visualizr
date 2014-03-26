@@ -1,0 +1,77 @@
+    <div class="visualization vsl">
+        <header class="vsl-header">
+            <div class="step-bar"></div>
+            <ul class="vsl-steps">
+                <li class="step-1">
+                    <a href="../choose">
+                        <span class="circle"></span>
+                        <h3>Choose Type</h3>
+                    </a>
+                </li>
+                <li class="active step-2">
+                    <span class="circle"></span>
+                    <h3>Data Entry</h3>
+                </li>
+            </ul>
+        </header>
+        <form class="data-form" method="post" action="../../../create">
+            <section class="vsl-content row">
+                <div class="col-1">
+                    <div class="small-wrap">
+                    <div class="vsl-error">
+                            <ul>
+                                
+                            </ul>
+                        </div>
+                        <h6>Basic Info</h6>
+                            <input type="text" placeholder="Title" name="title">
+                            <input type="hidden" name="type" value="bar">
+                            <select name="category_id">
+                            {{ if(count($categories) > 0) }}
+                                {{ loop($categories as $category) }}
+                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                {{ endloop }}
+                            {{ else }}
+                                <option>There is no category. Go and add new</option>
+                            {{ endif }}
+                            </select>
+                            <input type="text" placeholder="Tags (Seprated by Comma)" name="tags">
+                        <h6>Data</h6>
+                        <div id="dataTable"></div>
+                         <h6>Options</h6>
+                        <table class="option-table">
+                            <tr>
+                                <td width="20%">
+                                    <label for="isStacked">Stacked</label>
+                                    <select name="isStacked">
+                                        <option value="false">No</option>
+                                        <option value="true">Yes</option>
+                                    </select>
+                                </td>
+                                <td width="40%%">
+                                    <input type="text" placeholder="Horizontal Axis Label" name="hAxis">
+                                </td>
+                                 <td width="40%">
+                                    <input type="text" placeholder="Vertical Axis Label" name="vAxis">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="vsl-footer">
+            <div class="row">
+                <div class="small-wrap col-1">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </div>
+            </footer>
+        </form>
+        <script>
+            var Visualizr = {
+                completeUrl : "{{ admin_url('visualizr') }}",
+                requestUrl : "{{ admin_url('visualizr/create') }}"
+            }
+        </script>
+    </div>

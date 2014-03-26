@@ -1,0 +1,78 @@
+<div class="vsl">
+<h3>Latest Visualizations</h3>
+{{ if(count($visualizrs) > 0) }}
+	<table class="table table-striped table-hover">
+		{{ loop($visualizrs as $visualizr) }}
+		<tr>
+			<td>
+					<a href="{{ url('visualizr/'.$visualizr->id) }}" class="visualizr-link" data-id="{{ $visualizr->id }}" data-type="{{ $visualizr->type }}">
+						{{ $visualizr->title }}
+					</a>
+			</td>
+		</tr>
+		{{ endloop }}
+	</table>
+{{ else }}
+	<h4>There is no data</h4>
+{{ endif }}
+<!-- <div id="piechart" style="width: 800px; height: 500px; margin: 0 auto"></div> -->
+<h3>Browse by Categories</h3>
+	<ul class="home-cat-list">
+	{{ if(count($categories) > 0) }}
+		{{ loop($categories as $category) }}
+			<li><a href="#">{{ $category->title }}</a></li>
+		{{ endloop }}
+	{{ else }}
+	<h4>There is no data</h4>
+	{{ endif }}
+	</ul>
+	<div class="clearfix"></div>
+</div>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+google.load("visualization", "1", {packages:["corechart"]});
+	$('.visualizr-link').click(function () {
+
+    	event.preventDefault();
+
+    	var currentId = $(this).data('id');
+    	var currentType = $(this).data('type');
+
+		  google.setOnLoadCallback(function() {
+
+		    var getAllData = $.ajax({
+		      url: "{{ url('visualizr/chart/') }}/" + currentId,
+		      dataType:"json",
+		      async: false
+		    }).responseText;
+
+		    var vslData = $.parseJSON(getAllData);
+
+		    var data = google.visualization.arrayToDataTable(vslData);
+
+		    var options = {
+		      "is3D": true,
+		      "isStacked" : true
+		    };
+
+
+		    if ( currentType === 'pie') {
+		      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+		    };
+
+		    if ( currentType === 'bar') {
+		       var chart = new google.visualization.BarChart(document.getElementById('piechart'));
+		    };
+
+		    if ( currentType === 'column') {
+		       var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
+		    };
+
+		    chart.draw(data, options);
+
+		  });
+		  
+
+		
+    });
+</script>

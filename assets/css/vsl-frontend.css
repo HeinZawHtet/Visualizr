@@ -1,0 +1,19 @@
+.home-cat-list {
+	padding: 0;
+	list-style: none;
+}
+.home-cat-list li a {
+	display: block;
+	padding: 20px 10px;
+	border: 1px solid #95a5a6;
+	width: 49%;
+	margin: 1% 1% 1% 0;
+	float: left;
+	text-align: center;
+}
+.home-cat-list li a:hover {
+	background: #ecf0f1;
+}
+.home-cat-list li:nth-child(even) a {
+	margin: 1% 0 1% 1%;
+}
