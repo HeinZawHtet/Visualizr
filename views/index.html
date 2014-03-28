@@ -1,7 +1,13 @@
 <div class="vsl">
-<h3>Latest Visualizations</h3>
+<h2 class="page-title"></h2>
+<div class="chart-selector">
+
+</div>
 {{ if(count($visualizrs) > 0) }}
-	<table class="table table-striped table-hover">
+	<table class="visualizr-table table table-striped table-hover">
+	<tr>
+		<th><h3>Latest Visualizations</h3></th>
+	</tr>
 		{{ loop($visualizrs as $visualizr) }}
 		<tr>
 			<td>
@@ -15,7 +21,7 @@
 {{ else }}
 	<h4>There is no data</h4>
 {{ endif }}
-<!-- <div id="piechart" style="width: 800px; height: 500px; margin: 0 auto"></div> -->
+<div id="piechart" style="width: 800px; height: 500px; margin: 0 auto"></div>
 <h3>Browse by Categories</h3>
 	<ul class="home-cat-list">
 	{{ if(count($categories) > 0) }}
@@ -30,49 +36,63 @@
 </div>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-google.load("visualization", "1", {packages:["corechart"]});
+// google.load("visualization", "1", {packages:["corechart"]});
 	$('.visualizr-link').click(function () {
-
     	event.preventDefault();
 
     	var currentId = $(this).data('id');
     	var currentType = $(this).data('type');
+    	var currentTitle = $(this).text();
 
-		  google.setOnLoadCallback(function() {
-
-		    var getAllData = $.ajax({
+    	var getAllData = $.ajax({
 		      url: "{{ url('visualizr/chart/') }}/" + currentId,
 		      dataType:"json",
-		      async: false
+		      async: false,
+		      beforeSend: function() {
+		      	$('.chart-selector').html('<i class="icon-spinner icon-spin"></i>');
+		      },
+		      complete: function (res) {
+		      	$('.icon-spinner').remove();
+		      },
+		      success: function(resultData) {
+
+		      	$(".visualizr-table").insertAfter('#piechart');
+
+		      	$('.page-title').html(currentTitle);
+				// Load Google Chart
+		      	google.load('visualization', '1', {packages:['corechart'], 'callback' : function()
+				    {
+		                    var data = google.visualization.arrayToDataTable(resultData);
+						    if ( currentType === 'pie') {
+						      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+						    };
+
+						    if ( currentType === 'bar') {
+						       var chart = new google.visualization.BarChart(document.getElementById('piechart'));
+						    };
+
+						    if ( currentType === 'column') {
+						       var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
+						    };
+						    chart.draw(data, options);
+				    }
+			    });
+
+
+			    return true;
+		      }
 		    }).responseText;
 
-		    var vslData = $.parseJSON(getAllData);
+    	
 
-		    var data = google.visualization.arrayToDataTable(vslData);
+	    var options = {
+			"is3D": true,
+			"isStacked" : true
+	    };
 
-		    var options = {
-		      "is3D": true,
-		      "isStacked" : true
-		    };
-
-
-		    if ( currentType === 'pie') {
-		      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-		    };
-
-		    if ( currentType === 'bar') {
-		       var chart = new google.visualization.BarChart(document.getElementById('piechart'));
-		    };
-
-		    if ( currentType === 'column') {
-		       var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
-		    };
-
-		    chart.draw(data, options);
-
-		  });
-		  
-
+	    $('.visualizr-link').click(function () {
+	    	event.preventDefault();
+	    });
 		
     });
 </script>
