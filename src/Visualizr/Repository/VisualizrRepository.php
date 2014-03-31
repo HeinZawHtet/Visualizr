@@ -24,5 +24,9 @@ class VisualizrRepository
 	{
 		return $this->visualizr->save($data);
 	}
+	public function getOptionById($id)
+	{
+		return $this->visualizr->find($id)->options;
+	}
 
 }

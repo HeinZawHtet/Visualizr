@@ -36,7 +36,6 @@
 </div>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-// google.load("visualization", "1", {packages:["corechart"]});
 	$('.visualizr-link').click(function () {
     	event.preventDefault();
 
@@ -74,6 +73,15 @@
 						    if ( currentType === 'column') {
 						       var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
 						    };
+
+
+						    var getOption = $.ajax({
+						      url: "{{ url('visualizr/option/') }}/" + currentId,
+						      dataType:"json",
+						      async: false,
+						  	}).responseText;
+
+						  	var options = $.parseJSON(getOption);
 						    chart.draw(data, options);
 				    }
 			    });

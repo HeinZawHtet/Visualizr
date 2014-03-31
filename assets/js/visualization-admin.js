@@ -1,10 +1,20 @@
 $(function() {
+    var vslData = null;
+    if (Visualizr.Id) {
+        var getAllData = $.ajax({
+          url: Visualizr.siteUrl + "visualizr/chart/"+Visualizr.Id,
+          dataType:"json",
+          async: false
+        }).responseText;
+
+        var vslData = $.parseJSON(getAllData);
+    };
+    
 	$("#dataTable").handsontable({
+        data: vslData,
 	    contextMenu: true,
         minRows: 10,
-        minCols: 12,
-        minSpareRows: 1,
-        minSpareCols: 1,
+        minCols: 18,
         colHeaders: true,
   	});
 

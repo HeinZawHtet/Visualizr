@@ -22,7 +22,7 @@
 }
 .visualization {
     background: #fff;
-    width: 80%;
+    width: 90%;
     position: relative;
     margin: 10px auto;
     overflow: hidden;
@@ -143,7 +143,7 @@
     border-right: 1px solid #ecf0f1;
 }
 .small-wrap {
-    max-width: 600px;
+    max-width: 900px;
     margin: 0 auto;
 }
 .vsl .data-label {

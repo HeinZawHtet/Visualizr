@@ -47,4 +47,10 @@ class VisualizrController extends \PublicController
 		$getData = $this->visualizr->find($id);
 		return Response::json($getData->convert_data);
 	}
+
+	public function chartOption($id)
+	{
+		$getData = $this->visualizr->getOptionById($id);
+		return Response::json($getData);
+	}
 }

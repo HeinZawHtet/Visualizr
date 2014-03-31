@@ -125,6 +125,21 @@ class VisualizrController extends \AdminController
 	}
 
 
+	public function edit($id)
+	{
+		$visualizr = $this->visualizr->find($id);
+		$categories = $this->category->all();
+
+		$this->template->title('Visualization')
+						->set('visualizr', $visualizr)
+						->set('categories', $categories)
+						->style('jquery.handsontable.full.css', 'visualizr')
+						->script('jquery.handsontable.full.js', 'visualizr')
+						->script('visualization-admin.js', 'visualizr')
+						->view('admin.step-bar');
+	}
+
+
 	/**
 	 * Delete Data
 	 *

@@ -24,13 +24,19 @@
                             </ul>
                         </div>
                         <h6>Basic Info</h6>
-                            <input type="text" placeholder="Title" name="title">
+                            <input type="text" placeholder="Title" name="title" value="{{ if (isset($visualizr->title)) }} {{ $visualizr->title }} {{ endif }}">
                             <input type="hidden" name="type" value="bar">
                             <select name="category_id">
                             {{ if(count($categories) > 0) }}
-                                {{ loop($categories as $category) }}
-                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
-                                {{ endloop }}
+                                {{ if(isset($visualizr)) }}
+                                    {{ loop($categories as $category) }}
+                                        <option value="{{ $category->id }}" {{ if($category->id  == $visualizr->category_id) }} selected="selected" {{ endif }}>{{ $category->title }}</option>
+                                    {{ endloop }}
+                                {{ else }}
+                                    {{ loop($categories as $category) }}
+                                        <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                    {{ endloop }}
+                                {{ endif }}
                             {{ else }}
                                 <option>There is no category. Go and add new</option>
                             {{ endif }}
@@ -70,6 +76,8 @@
         </form>
         <script>
             var Visualizr = {
+                Id : "{{ if(isset($visualizr)) }}{{ $visualizr->id }}{{ endif }}",
+                siteUrl : "{{ url() }}",
                 completeUrl : "{{ admin_url('visualizr') }}",
                 requestUrl : "{{ admin_url('visualizr/create') }}"
             }
