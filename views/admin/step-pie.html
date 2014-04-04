@@ -1,6 +1,6 @@
     <div class="visualization vsl">
         <header class="vsl-header">
-            <div class="step-bar"></div>
+            <div class="step-pie"></div>
             <ul class="vsl-steps">
                 <li class="step-1">
                     <a href="../choose">
@@ -18,19 +18,25 @@
             <section class="vsl-content row">
                 <div class="col-1">
                     <div class="small-wrap">
-                        <div class="vsl-error">
+                    <div class="vsl-error">
                             <ul>
                                 
                             </ul>
                         </div>
                         <h6>Basic Info</h6>
-                            <input type="text" placeholder="Title" name="title">
+                            <input type="text" placeholder="Title" name="title" value="{{ if (isset($visualizr->title)) }} {{ $visualizr->title }} {{ endif }}">
                             <input type="hidden" name="type" value="pie">
                             <select name="category_id">
                             {{ if(count($categories) > 0) }}
-                                {{ loop($categories as $category) }}
-                                    <option value="{{ $category->id }}">{{ $category->title }}</option>
-                                {{ endloop }}
+                                {{ if(isset($visualizr)) }}
+                                    {{ loop($categories as $category) }}
+                                        <option value="{{ $category->id }}" {{ if($category->id  == $visualizr->category_id) }} selected="selected" {{ endif }}>{{ $category->title }}</option>
+                                    {{ endloop }}
+                                {{ else }}
+                                    {{ loop($categories as $category) }}
+                                        <option value="{{ $category->id }}">{{ $category->title }}</option>
+                                    {{ endloop }}
+                                {{ endif }}
                             {{ else }}
                                 <option>There is no category. Go and add new</option>
                             {{ endif }}
@@ -38,18 +44,17 @@
                             <input type="text" placeholder="Tags (Seprated by Comma)" name="tags">
                         <h6>Data</h6>
                         <div id="dataTable"></div>
-
-                        <h6>Options</h6>
-                         <table class="option-table">
+                         <h6>Options</h6>
+                        <table class="option-table">
                             <tr>
                                 <td width="20%">
-                                    <label for="is3D">3D</label> 
-                                    <select name="is3D">
+                                    <label for="isStacked">Stacked</label>
+                                    <select name="isStacked">
                                         <option value="false">No</option>
                                         <option value="true">Yes</option>
                                     </select>
                                 </td>
-                                <td width="40%">
+                                <td width="40%%">
                                     <input type="text" placeholder="Horizontal Axis Label" name="hAxis">
                                 </td>
                                  <td width="40%">
@@ -57,7 +62,11 @@
                                 </td>
                             </tr>
                         </table>
-                    </div>
+                        {{ if (isset($visualizr->id)) }}
+                            <h6>Embed Codes</h6>
+                        <textarea style="width:98%; height: 100%; font-family: consolas">&lt;iframe src="http://localhost/omisite/visualizr/embed/{{ $visualizr->id }}" width="100%" class="chart-embed" height="350px" frameBorder="0"&gt;&lt;/iframe&gt;</textarea>
+                        {{ endif }}
+                    </div> 
                 </div>
             </section>
 
@@ -71,6 +80,8 @@
         </form>
         <script>
             var Visualizr = {
+                Id : "{{ if(isset($visualizr)) }}{{ $visualizr->id }}{{ endif }}",
+                siteUrl : "{{ url() }}",
                 completeUrl : "{{ admin_url('visualizr') }}",
                 requestUrl : "{{ admin_url('visualizr/create') }}"
             }

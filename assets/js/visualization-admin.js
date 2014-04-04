@@ -55,7 +55,8 @@ $(function() {
 	            $('.vsl-footer .small-wrap').html('<div class="spinner"></div>');
         	},
         	complete: function (res) {
-	            // window.location.replace(Visualizr.completeUrl);
+                var result = $.parseJSON(res.responseText);
+                window.location.replace(Visualizr.completeUrl + '/edit/' + result.id);
         	}
       	});
     });

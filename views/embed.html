@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Embed</title>
+  <style type="text/css">
+    
+  </style>
+</head>
+<body>
+  <div id="piechart" style="width: 500px; height: 300px; margin: 0 auto"></div>
+      <script>
+        var Visualizr = {
+            chartId: "{{ $visualizr->id }}",
+            chartType : "{{ $visualizr->type }}"
+        }
+      </script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("jquery", "1.4.2");
+      google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var getAllData = $.ajax({
+          url: "{{ url('visualizr/chart/') }}/"+Visualizr.chartId,
+          dataType:"json",
+          async: false
+        }).responseText;
+
+        var getChartOption = $.ajax({
+          url: "{{ url('visualizr/option/') }}/"+Visualizr.chartId,
+          dataType:"json",
+          async: false
+        }).responseText;
+
+        var vslData = $.parseJSON(getAllData);
+        var vslOption = $.parseJSON(getChartOption);
+
+        var data = google.visualization.arrayToDataTable(vslData);
+
+        var chartType = Visualizr.chartType;
+
+        if ( chartType === 'pie') {
+          var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        };
+
+        if ( chartType === 'bar') {
+           var chart = new google.visualization.BarChart(document.getElementById('piechart'));
+        };
+
+        if ( chartType === 'column') {
+           var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
+        };
+
+        // chart.draw(data, options);
+        chart.draw(data,vslOption);
+      }
+    </script>
+</body>
+</html>

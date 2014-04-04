@@ -18,6 +18,7 @@ Route::add('@admin/visualizr/category','Visualizr\Admin\Category::index','visual
 Route::add('@admin/visualizr/test','Visualizr\Admin\Visualizr::test','visualizr_test');
 
 // Frontend
+Route::add('visualizr/embed/{string:id}','Visualizr\Visualizr::embed','visualizr_embed');
 Route::add('visualizr','Visualizr\Visualizr::index','visualizr_index');
 Route::add('visualizr/{string:id}','Visualizr\Visualizr::show','visualizr_show');
 Route::add('visualizr/chart/{string:id}','Visualizr\Visualizr::chartData','visualizr_chart_data');

@@ -16,6 +16,11 @@ class VisualizrRepository
 		return $this->visualizr->all();
 	}
 
+	public function sort()
+	{
+		return $this->visualizr->sort('created_at', 'desc')->get();
+	}
+
 	public function find($id)
 	{
 		return $this->visualizr->find($id);
@@ -28,5 +33,10 @@ class VisualizrRepository
 	{
 		return $this->visualizr->find($id)->options;
 	}
+	public function where($key, $operator, $value)
+	{
+		return $this->visualizr->where($key, $operator, $value)->onlyOne();
+	}
+
 
 }

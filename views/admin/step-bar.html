@@ -62,7 +62,11 @@
                                 </td>
                             </tr>
                         </table>
-                    </div>
+                        {{ if (isset($visualizr->id)) }}
+                            <h6>Embed Codes</h6>
+                        <textarea style="width:98%; height: 100%; font-family: consolas">&lt;iframe src="http://localhost/omisite/visualizr/embed/{{ $visualizr->id }}" width="100%" class="chart-embed" height="350px" frameBorder="0"&gt;&lt;/iframe&gt;</textarea>
+                        {{ endif }}
+                    </div> 
                 </div>
             </section>
 

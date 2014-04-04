@@ -38,7 +38,7 @@ class VisualizrController extends \AdminController
 	public function index()
 	{
 		
-		$visualizrs = $this->visualizr->all();
+		$visualizrs = $this->visualizr->sort();
 
 		$this->template->title('Visualization Dashboard')
 						->set('visualizrs', $visualizrs)
@@ -114,8 +114,10 @@ class VisualizrController extends \AdminController
 				);
 
 				$this->visualizr->save($data);
-				Flash::success('successessfully Created');
-				return Redirect::toAdmin('visualizr');
+				// Flash::success('successessfully Created');
+				// return Redirect::toAdmin('visualizr');
+				$latestId = $this->visualizr->where('title', '=', Input::get('title'));
+				return $latestId;
 			}
 
 			return Response::json((array) $this->validation->getErrors(), 400);
@@ -130,13 +132,39 @@ class VisualizrController extends \AdminController
 		$visualizr = $this->visualizr->find($id);
 		$categories = $this->category->all();
 
-		$this->template->title('Visualization')
-						->set('visualizr', $visualizr)
+		switch ($visualizr->type) {
+			case "pie":
+			
+				$this->template->title("Pie Chart")
+						->setPartial("admin.step-pie");
+
+				break;
+
+			case "column":
+			
+				$this->template->title("Column Chart")
+						->setPartial("admin.step-column");
+
+				break;
+
+			case "bar":
+		
+				$this->template->title("Bar Chart")
+						->setPartial("admin.step-bar");
+
+			break;
+					
+			default:
+				$this->template->title("Choose a Type")
+							->setPartial("admin.step-choose");
+				break;
+		}
+
+		$this->template->set('visualizr', $visualizr)
 						->set('categories', $categories)
 						->style('jquery.handsontable.full.css', 'visualizr')
 						->script('jquery.handsontable.full.js', 'visualizr')
-						->script('visualization-admin.js', 'visualizr')
-						->view('admin.step-bar');
+						->script('visualization-admin.js', 'visualizr');
 	}
 
 

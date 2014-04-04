@@ -26,7 +26,7 @@ class VisualizrController extends \PublicController
 	public function index()
 	{
 		$categories = $this->category->all();
-		$visualizrs = $this->visualizr->all();
+		$visualizrs = $this->visualizr->sort();
 		$this->template->title('Visualization')
 						->set('categories', $categories)
 						->set('visualizrs', $visualizrs)
@@ -40,6 +40,17 @@ class VisualizrController extends \PublicController
 						->set('visualizr', $visualizr)
 						->set('id', $id)
 						->view('show');
+	}
+
+	public function embed($id)
+	{
+		$visualizr = $this->visualizr->find($id);
+		if ( parse_url(Input::server('HTTP_REFERER'), PHP_URL_HOST) == \Config::get('visualizr::visualizr.site_url')) {
+			$this->template->partialOnly()
+							->set('visualizr', $visualizr)
+							->set('id', $id)
+							->view('embed');
+		}
 	}
 
 	public function chartData($id)
