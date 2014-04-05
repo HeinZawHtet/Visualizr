@@ -36,7 +36,7 @@
 </div> -->
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
-	$('.visualizr-link').click(function () {
+	$('.visualizr-link').click(function (event) {
     	event.preventDefault();
 
     	var currentId = $(this).data('id');
@@ -54,7 +54,6 @@
 		      	$('.icon-spinner').remove();
 		      },
 		      success: function(resultData) {
-
 		      	$(".visualizr-table").insertAfter('#piechart');
 
 		      	$('.page-title').html(currentTitle);
@@ -75,18 +74,18 @@
 						    };
 
 
-						    var getOption = $.ajax({
+						    /* var getOption = $.ajax({
 						      url: "{{ url('visualizr/option/') }}/" + currentId,
 						      dataType:"json",
 						      async: false,
-						  	}).responseText;
+						  	}).responseText; */
 
-						  	var options = $.parseJSON(getOption);
+						  	/* var options = $.parseJSON(getOption); */
+						  	var options = {};
 						  	options.fontName = 'Myanmar3';
 						  	options.chartArea = {
 						  		width : '100%'
 						  	};
-						  	console.log(options.chartArea);
 						    chart.draw(data, options);
 				    }
 			    });
@@ -97,7 +96,7 @@
 		    }).responseText;
 
 
-	    $('.visualizr-link').click(function () {
+	    $('.visualizr-link').click(function (event ) {
 	    	event.preventDefault();
 	    });
 		
