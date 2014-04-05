@@ -82,6 +82,11 @@
 						  	}).responseText;
 
 						  	var options = $.parseJSON(getOption);
+						  	options.fontName = 'Myanmar3';
+						  	options.chartArea = {
+						  		width : '100%'
+						  	};
+						  	console.log(options.chartArea);
 						    chart.draw(data, options);
 				    }
 			    });
@@ -91,12 +96,6 @@
 		      }
 		    }).responseText;
 
-    	
-
-	    var options = {
-			"is3D": true,
-			"isStacked" : true
-	    };
 
 	    $('.visualizr-link').click(function () {
 	    	event.preventDefault();
