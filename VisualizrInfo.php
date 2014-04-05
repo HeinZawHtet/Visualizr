@@ -16,7 +16,7 @@ class VisualizrInfo extends \Reborn\Module\AbstractInfo
 	 *
 	 * @var string
 	 **/
-	protected $version = '1.0';
+	protected $version = '0.9';
 
 	/**
 	 * Module Display name variable.
@@ -33,7 +33,7 @@ class VisualizrInfo extends \Reborn\Module\AbstractInfo
 	 * @var string
 	 **/
 	protected $description = array(
-							'en' => 'Visualizing Your Loves'
+							'en' => 'Visualizing Your Stats'
 							);
 
 	/**
