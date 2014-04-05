@@ -175,8 +175,11 @@ class VisualizrController extends \AdminController
 
 	public function delete($id)
 	{
-		return "You are deleting $id";
-
+		$visualizr = $this->visualizr->find($id);
+		$visualizr->delete();
+		
+		Flash::success('Deleted');
+		return Redirect::toAdmin('visualizr');
 	}
 	public function show($id)
 	{
