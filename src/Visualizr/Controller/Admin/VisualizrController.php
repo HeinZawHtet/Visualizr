@@ -190,4 +190,10 @@ class VisualizrController extends \AdminController
 		$this->template->title('test')
 						->view('show');
 	}
+
+	public function image($id)
+	{
+		$this->template->title('test')
+						->view('img');
+	}
 }

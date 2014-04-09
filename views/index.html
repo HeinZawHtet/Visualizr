@@ -74,14 +74,14 @@
 						    };
 
 
-						    /* var getOption = $.ajax({
+						     var getOption = $.ajax({
 						      url: "{{ url('visualizr/option/') }}/" + currentId,
 						      dataType:"json",
 						      async: false,
-						  	}).responseText; */
+						  	}).responseText; 
 
-						  	/* var options = $.parseJSON(getOption); */
-						  	var options = {};
+						  	var options = $.parseJSON(getOption); 
+						  	// var options = {};
 						  	options.fontName = 'Myanmar3';
 						  	options.chartArea = {
 						  		width : '100%'
