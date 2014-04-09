@@ -47,7 +47,7 @@
                             <input type="text" placeholder="Tags (Seprated by Comma)" name="tags">
                         <h6>Data</h6>
                         <div id="dataTable"></div>
-                         <h6>Options</h6>
+                        <!-- <h6>Options</h6>
                         <table class="option-table">
                             <tr>
                                 <td width="20%">
@@ -64,7 +64,7 @@
                                     <input type="text" placeholder="Vertical Axis Label" name="vAxis">
                                 </td>
                             </tr>
-                        </table>
+                        </table> -->
                         {{ if (isset($visualizr->id)) }}
                             <h6>Embed Codes</h6>
                         <textarea style="width:98%; height: 100%; font-family: consolas">&lt;iframe src="http://omimyanmar.org/visualizr/embed/{{ $visualizr->id }}" width="100%" class="chart-embed" height="350px" frameBorder="0"&gt;&lt;/iframe&gt;</textarea>
