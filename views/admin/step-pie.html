@@ -26,6 +26,9 @@
                         <h6>Basic Info</h6>
                             <input type="text" placeholder="Title" name="title" value="{{ if (isset($visualizr->title)) }} {{ $visualizr->title }} {{ endif }}">
                             <input type="hidden" name="type" value="pie">
+                            {{ if (isset($visualizr->id)) }}
+                                <input type="hidden" name="type" value="{{$visualizr->id}}">
+                            {{ endif }}
                             <select name="category_id">
                             {{ if(count($categories) > 0) }}
                                 {{ if(isset($visualizr)) }}
