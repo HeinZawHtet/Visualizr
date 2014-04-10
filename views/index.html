@@ -21,7 +21,7 @@
 {{ else }}
 	<h4>There is no data</h4>
 {{ endif }}
-<div id="piechart" style="width: 800px; height: 500px; margin: 0 auto"></div>
+<div id="piechart" style="width: 800px; height: 500px; margin: 0 auto;"></div>
 <!-- <h3>Browse by Categories</h3>
 	<ul class="home-cat-list">
 	{{ if(count($categories) > 0) }}
@@ -78,23 +78,22 @@
 						      url: "{{ url('visualizr/option/') }}/" + currentId,
 						      dataType:"json",
 						      async: false,
-						  	}).responseText; 
+						  	}).responseText;
 
 						  	var options = $.parseJSON(getOption); */
+
 						  	var options = {}; 
 						  	options.fontName = 'Myanmar3';
+						  	options.backgroundColor = 'transparent';
 						  	options.chartArea = {
-						  		width : '100%'
+						  		/* width : '100%' */
 						  	};
 						    chart.draw(data, options);
 				    }
 			    });
-
-
 			    return true;
 		      }
 		    }).responseText;
-
 
 	    $('.visualizr-link').click(function (event ) {
 	    	event.preventDefault();

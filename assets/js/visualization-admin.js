@@ -20,7 +20,7 @@ $(function() {
 
   	var handsontable = $("#dataTable").data('handsontable');
     
-    $('button[type=submit]').click(function () {
+    $('button[type=submit]').click(function (event) {
     	event.preventDefault();
         
         var options = {};
