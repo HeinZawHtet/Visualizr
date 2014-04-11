@@ -21,6 +21,7 @@ class VisualizrController extends \PublicController
 	public function before()
 	{
 		$this->template->style('vsl-frontend.css', 'visualizr');
+		$this->template->script('history.iegte8.min.js', 'visualizr');
 	}
 
 	public function index()

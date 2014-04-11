@@ -1,7 +1,7 @@
 <div class="vsl">
+<!-- <base href="www.google.com" /> -->
 <h2 class="page-title"></h2>
 <div class="chart-selector">
-
 </div>
 {{ if(count($visualizrs) > 0) }}
 	<table class="visualizr-table table table-striped table-hover">
@@ -21,7 +21,24 @@
 {{ else }}
 	<h4>There is no data</h4>
 {{ endif }}
+<div class="visualizr-btn">
+	<button id="export-btn" class="btn btn-primary">Export PNG</button>
+</div>
 <div id="piechart" style="width: 800px; height: 500px; margin: 0 auto;"></div>
+<div class="modal fade" id="myModal">
+  <div class="modal-dialog" style="width: 875px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Exported PNG</h4>
+      </div>
+      <div class="modal-body">
+      	<div id="dl-btn" style="margin-bottom: 10px;"></div>
+        <canvas id="exported_img" style="display:none;border: 2px solid #ccc"></canvas>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <!-- <h3>Browse by Categories</h3>
 	<ul class="home-cat-list">
 	{{ if(count($categories) > 0) }}
@@ -54,41 +71,63 @@
 		      	$('.icon-spinner').remove();
 		      },
 		      success: function(resultData) {
+
+		      	/* history.pushState(null, null, currentId); */
+
 		      	$(".visualizr-table").insertAfter('#piechart');
 
 		      	$('.page-title').html(currentTitle);
 				
 		      	google.load('visualization', '1', {packages:['corechart'], 'callback' : function()
-				    {
-		                    var data = google.visualization.arrayToDataTable(resultData);
-						    if ( currentType === 'pie') {
-						      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-						    };
+					{
+	                    var data = google.visualization.arrayToDataTable(resultData);
+					    if ( currentType === 'pie') {
+					      var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+					    };
 
-						    if ( currentType === 'bar') {
-						       var chart = new google.visualization.BarChart(document.getElementById('piechart'));
-						    };
+					    if ( currentType === 'bar') {
+					       var chart = new google.visualization.BarChart(document.getElementById('piechart'));
+					    };
 
-						    if ( currentType === 'column') {
-						       var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
-						    };
+					    if ( currentType === 'column') {
+					       var chart = new google.visualization.ColumnChart(document.getElementById('piechart'));
+					    };
 
-						    /*
-						    var getOption = $.ajax({
-						      url: "{{ url('visualizr/option/') }}/" + currentId,
-						      dataType:"json",
-						      async: false,
-						  	}).responseText;
+					    /*
+					    var getOption = $.ajax({
+					      url: "{{ url('visualizr/option/') }}/" + currentId,
+					      dataType:"json",
+					      async: false,
+					  	}).responseText;
 
-						  	var options = $.parseJSON(getOption); */
+					  	var options = $.parseJSON(getOption); */
 
-						  	var options = {}; 
-						  	options.fontName = 'Myanmar3';
-						  	options.backgroundColor = 'transparent';
-						  	options.chartArea = {
-						  		/* width : '100%' */
-						  	};
-						    chart.draw(data, options);
+					  	var options = {}; 
+					  	options.fontName = 'Myanmar3';
+					  	options.legend = {
+					  		maxLines : '100'
+					  	}
+
+					  	$('#export-btn').click(function(event){
+					  		$('#myModal').modal(options);
+					        $('#exported_img').css('display', 'block');
+					        var canvas = document.getElementById("exported_img"),
+					  	  	context = canvas.getContext("2d");
+					      	canvas.width  = 800;
+					      	canvas.height  = 500;
+					      	var x = canvas.width;
+					      	var y = canvas.height;
+					        var image = new Image;
+					        image.src = chart.getImageURI();
+					        context.drawImage(image,0,0);
+					        context.font="14px Arial";
+					        context.textAlign = 'center';
+					        context.fillStyle = "rgba(0, 0, 0, 0.5)";
+					        context.fillText("www.omimyanmar.org",x/2,y/2);
+					        context.fillText("Open Myanmar Initiative",x/2,y/2-20);
+					        $('#dl-btn').html('<a download="Visualization - Open Myanmar Initiative.png" class="btn btn-primary" href="' + canvas.toDataURL() + '">Download</a>');
+					     });
+					    chart.draw(data, options);
 				    }
 			    });
 			    return true;
